@@ -9,12 +9,14 @@ CREATE TABLE `data_platform_point_transaction_header_data`
   `PointSymbol`                           varchar(5) NOT NULL,
   `PlusMinus`                             varchar(1) NOT NULL,
   `PointTransactionAmount`                float(13) NOT NULL,
-  `PointTransactionObjectType`            varchar(3) NOT NULL,
+  `PointTransactionObjectType`            varchar(40) NOT NULL,
   `PointTransactionObject`                int(16) NOT NULL,
   `SenderPointBalanceBeforeTransaction`   float(13) NOT NULL,
   `SenderPointBalanceAfterTransaction`    float(13) NOT NULL,
   `ReceiverPointBalanceBeforeTransaction` float(13) NOT NULL,
   `ReceiverPointBalanceAfterTransaction`  float(13) NOT NULL,
+  `Attendance`                            int(12) DEFAULT NULL,
+  `Participation`                         int(12) DEFAULT NULL,
   `CreationDate`                          date NOT NULL,
   `CreationTime`                          time NOT NULL,
   `IsCancelled`                           tinyint(1) DEFAULT NULL,
@@ -23,7 +25,9 @@ CREATE TABLE `data_platform_point_transaction_header_data`
 
     CONSTRAINT `DPFMPointTransactionHeaderDataSender_fk` FOREIGN KEY (`Sender`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
     CONSTRAINT `DPFMPointTransactionHeaderDataReceiver_fk` FOREIGN KEY (`Receiver`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
-    CONSTRAINT `DPFMPointTransactionHeaderDataPointSymbol_fk` FOREIGN KEY (`PointSymbol`) REFERENCES `data_platform_point_symbol_point_symbol_data` (`PointSymbol`)
+    CONSTRAINT `DPFMPointTransactionHeaderDataPointSymbol_fk` FOREIGN KEY (`PointSymbol`) REFERENCES `data_platform_point_symbol_point_symbol_data` (`PointSymbol`),
+    CONSTRAINT `DPFMPointTransactionHeaderDataAttendance_fk` FOREIGN KEY (`Attendance`) REFERENCES `data_platform_attendance_header_data` (`Attendance`),
+    CONSTRAINT `DPFMPointTransactionHeaderDataParticipation_fk` FOREIGN KEY (`Participation`) REFERENCES `data_platform_participation_header_data` (`Participation`)
 
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
